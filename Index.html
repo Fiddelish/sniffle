@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FNX</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('./FNX.png'); /* Replace with your image URL or file */
+            background-size: fill;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: black;
+        }
+
+        #countdown {
+            font-size: 3rem;
+            color: white;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.6); /* Add a semi-transparent background for readability */
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="countdown"></div>
+
+    <script>
+        // Set the countdown for 72 hours (in milliseconds)
+        let countdownTime = 72 * 60 * 60 * 1000;
+        let countdownElement = document.getElementById("countdown");
+
+        function updateCountdown() {
+            // Calculate time left in days, hours, minutes, and seconds
+            let days = Math.floor(countdownTime / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((countdownTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((countdownTime % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((countdownTime % (1000 * 60)) / 1000);
+
+            // Display the result in the format: 0d 00h 00m 00s
+            countdownElement.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+            // Check if the countdown is finished
+            if (countdownTime > 0) {
+                countdownTime -= 1000; // Reduce the time by 1 second
+            } else {
+                clearInterval(countdownInterval);
+                countdownElement.innerHTML = "Countdown Ended!";
+            }
+        }
+
+        // Update the countdown every 1 second
+        let countdownInterval = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
