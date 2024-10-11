@@ -33,24 +33,29 @@
     <div id="countdown"></div>
 
     <script>
-        // Set the countdown for 72 hours (in milliseconds)
-        let countdownTime = 72 * 60 * 60 * 1000;
+        // Set the target date to 14th October 2024
+        let targetDate = new Date("October 14, 2024 00:00:00").getTime();
         let countdownElement = document.getElementById("countdown");
 
         function updateCountdown() {
-            // Calculate time left in days, hours, minutes, and seconds
-            let days = Math.floor(countdownTime / (1000 * 60 * 60 * 24));
-            let hours = Math.floor((countdownTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            let minutes = Math.floor((countdownTime % (1000 * 60 * 60)) / (1000 * 60));
-            let seconds = Math.floor((countdownTime % (1000 * 60)) / 1000);
+            // Get current time
+            let now = new Date().getTime();
 
-            // Display the result in the format: 0d 00h 00m 00s
-            countdownElement.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+            // Calculate the time difference
+            let timeDifference = targetDate - now;
 
             // Check if the countdown is finished
-            if (countdownTime > 0) {
-                countdownTime -= 1000; // Reduce the time by 1 second
+            if (timeDifference > 0) {
+                // Calculate days, hours, minutes, and seconds
+                let days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                let hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                // Display the result in the format: 0d 00h 00m 00s
+                countdownElement.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
             } else {
+                // When countdown is finished
                 clearInterval(countdownInterval);
                 countdownElement.innerHTML = "Countdown Ended!";
             }
